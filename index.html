@@ -54,7 +54,7 @@
     var backgroundColorPicker = $('#tempToggle');
 
     var options = {
-      'celsius': !backgroundColorPicker.hasClass('active')
+      'celsius': !backgroundColorPicker.hasClass('active') ? 1 : 0
     };
 
     // Save for next launch
@@ -90,8 +90,8 @@
 
     // Load any previously saved configuration, if available
     if(localStorage['celsius']) {
-      var isCelsius = JSON.parse(localStorage['celsius']);
-      if (isCelsius) {
+      var isCelsius = JSON.parse(localStorage['celsius']) === 1 ? true : false;
+      if (!isCelsius) {
         $('#tempToggle').addClass('active');
       } else {
         $('#tempToggle').removeClass('active');
