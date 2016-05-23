@@ -27,8 +27,22 @@
     <div class="item-container">
       <div class="item-container-content">
         <div class="item">
-          Use this page to choose a few options about HealthStep.
+          <p>Use this page to choose a few options about HealthStep.</p>
+          <br>
+          <p>An API key is <b>required</b> for weather to function properly.</p>
         </div>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-container-header">OpenWeatherMap API Key</div>
+      <div class="item-container-content">
+        <label class="item item-subtitle-wrapper">
+          <div class="item-subtitle">Create a FREE account at OpenWeatherMap.org. Obtain an API key and provide it here.</div>
+          <div class="item-input-wrapper">
+            <input id="apiKey" type="text" class="item-input" name="input-1" placeholder="API Key">
+          </div>
+        </label>
       </div>
     </div>
 
@@ -52,13 +66,16 @@
   <script>
   function getConfigData() {
     var backgroundColorPicker = $('#tempToggle');
+    var apiKeyInput = $('#apiKey');
 
     var options = {
-      'celsius': !backgroundColorPicker.hasClass('active') ? 1 : 0
+      'celsius': !backgroundColorPicker.hasClass('active') ? 1 : 0,
+      'api_key': apiKeyInput.val()
     };
 
     // Save for next launch
     localStorage['celsius'] = options['celsius'];
+    localStorage['api_key'] = options['api_key'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -87,6 +104,7 @@
 
   (function() {
     var backgroundColorPicker = $('#tempToggle');
+    var apiKeyInput = $('#apiKey');
 
     // Load any previously saved configuration, if available
     if(localStorage['celsius']) {
@@ -97,6 +115,9 @@
         $('#tempToggle').removeClass('active');
         $('#celToggle').addClass('active');
       }
+    }
+    if(localStorage['api_key']) {
+      apiKeyInput.val(localStorage['api_key']);
     }
   })();
   </script>
